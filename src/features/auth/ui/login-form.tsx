@@ -32,14 +32,20 @@ export const LoginForm = () => {
         >
           <Input
             errorMessage={errors.email?.message as string}
-            classNames={{ innerWrapper: "border-green-500" }}
+            classNames={{
+              innerWrapper: "border-green-500",
+              input: "text-base",
+            }}
             variant="bordered"
             placeholder="Электронная почта"
             {...fieldRegister("email")}
           />
           <Input
             errorMessage={errors.password?.message as string}
-            classNames={{ innerWrapper: "border-green-500" }}
+            classNames={{
+              innerWrapper: "border-green-500",
+              input: "text-base",
+            }}
             variant="bordered"
             placeholder="Пароль"
             type="password"

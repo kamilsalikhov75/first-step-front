@@ -36,21 +36,30 @@ export const RegisterForm = () => {
         >
           <Input
             errorMessage={errors.name?.message as string}
-            classNames={{ innerWrapper: "border-green-500" }}
+            classNames={{
+              innerWrapper: "border-green-500",
+              input: "text-base",
+            }}
             variant="bordered"
             placeholder="Имя"
             {...fieldRegister("name")}
           />
           <Input
             errorMessage={errors.email?.message as string}
-            classNames={{ innerWrapper: "border-green-500" }}
+            classNames={{
+              innerWrapper: "border-green-500",
+              input: "text-base",
+            }}
             variant="bordered"
             placeholder="Электронная почта"
             {...fieldRegister("email")}
           />
           <Input
             errorMessage={errors.password?.message as string}
-            classNames={{ innerWrapper: "border-green-500" }}
+            classNames={{
+              innerWrapper: "border-green-500",
+              input: "text-base",
+            }}
             variant="bordered"
             placeholder="Пароль"
             type="password"
@@ -58,7 +67,10 @@ export const RegisterForm = () => {
           />
           <Input
             errorMessage={errors.passwordConfirm?.message as string}
-            classNames={{ innerWrapper: "border-green-500" }}
+            classNames={{
+              innerWrapper: "border-green-500",
+              input: "text-base",
+            }}
             variant="bordered"
             placeholder="Повторите пароль"
             type="password"

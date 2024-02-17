@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import { firstStepBack } from "shared/api/first-step-back";
 import { SERVICES } from "shared/const";
 import { InfoCard } from "shared/ui/info-card";
 
 export const HomePage = () => {
-  firstStepBack.request({ method: "GET" });
   return (
     <main className="text-blue-900 flex flex-col gap-5">
       <section className="flex flex-col gap-3">
