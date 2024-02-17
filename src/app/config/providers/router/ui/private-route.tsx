@@ -2,6 +2,7 @@ import { useAuth } from "entities/auth";
 import { Role } from "entities/auth/types";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export interface PrivateRouteProps {
   children: React.ReactNode;
@@ -13,10 +14,13 @@ export const PrivateRoute = ({ children, role }: PrivateRouteProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
+    const token = Cookies.get("access_token");
+
+    if (!token) {
       return navigate("/");
     }
-    if (role && role !== user.role.name) {
+
+    if (role && role !== user?.role) {
       return navigate("/");
     }
   }, [user, navigate, role]);

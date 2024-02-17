@@ -1,10 +1,8 @@
 export interface User {
-  id: number;
+  _id: string;
   name: string;
   email: string;
-  role: {
-    name: Role;
-  };
+  role: Role;
 }
 
 export enum AuthModalMode {
@@ -26,6 +24,6 @@ export interface AuthStore {
 }
 
 export enum Role {
-  Authenticated = "Authenticated",
-  Admin = "Admin",
+  User = "user",
+  Admin = "admin",
 }

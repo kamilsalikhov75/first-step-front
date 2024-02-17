@@ -19,7 +19,7 @@ export const CreateAppointmentForm = () => {
 
         date?.setHours(Number(time) || 0);
 
-        createAppointment({ user: user?.id as number, date: date as Date });
+        createAppointment({ user: user?._id as string, date: date as Date });
       }}
       className="flex flex-col gap-4"
     >

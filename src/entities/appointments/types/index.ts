@@ -1,11 +1,9 @@
 import { User } from "entities/auth/types";
 
 export interface Appointment {
-  id: number;
-  attributes: {
-    user: { data: { id: number; attributes: User } };
-    date: string;
-  };
+  _id: number;
+  user: User;
+  date: string;
 }
 
 export interface AppointmentsStore {

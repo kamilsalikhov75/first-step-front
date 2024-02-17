@@ -23,7 +23,7 @@ export const UserMenu = () => {
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="Profile Actions" variant="flat">
-        {user?.role.name === Role.Admin && (
+        {user?.role === Role.Admin && (
           <DropdownItem
             onClick={() => {
               navigate("/admin/appointments");

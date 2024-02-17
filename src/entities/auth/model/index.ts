@@ -1,64 +1,56 @@
 import { createApi, createEffect, createStore } from "effector";
 import { useUnit } from "effector-react";
-import { AuthModalMode, AuthStore, User } from "../types";
-import { getHeaders, strapi } from "shared/api/strapi";
+import { AuthModalMode, AuthStore } from "../types";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { firstStepBack, getHeaders } from "shared/api/first-step-back";
 
 export const initialState: AuthStore = { isAuth: false };
 
 export const login = createEffect(
-  async (data: { identifier: string; password: string }) => {
-    const { data: responseData } = await strapi.request<{
-      jwt: string;
-      user: User;
+  async (data: { username: string; password: string }) => {
+    const { data: responseData } = await firstStepBack.request<{
+      access_token: string;
     }>({
       method: "POST",
-      url: "auth/local",
+      url: "auth/login",
       data,
     });
 
     const tokenExpires = new Date(
-      (jwtDecode(responseData.jwt).exp as number) * 1000
+      (jwtDecode(responseData.access_token).exp as number) * 1000
     );
 
-    Cookies.set("jwt", responseData.jwt, { expires: tokenExpires });
-    return responseData.user;
+    Cookies.set("access_token", responseData.access_token, {
+      expires: tokenExpires,
+    });
   }
 );
 
 export const register = createEffect(
-  async (data: {
-    username: string;
-    email: string;
-    password: string;
-    name: string;
-  }) => {
-    const { data: responseData } = await strapi.request<{
-      jwt: string;
-      user: User;
+  async (data: { name: string; email: string; password: string }) => {
+    const { data: responseData } = await firstStepBack.request<{
+      access_token: string;
     }>({
       method: "POST",
-      url: "auth/local/register",
+      url: "/users/register",
       data,
     });
 
     const tokenExpires = new Date(
-      (jwtDecode(responseData.jwt).exp as number) * 1000
+      (jwtDecode(responseData.access_token).exp as number) * 1000
     );
 
-    Cookies.set("jwt", responseData.jwt, { expires: tokenExpires });
-    return responseData.user;
+    Cookies.set("access_token", responseData.access_token, {
+      expires: tokenExpires,
+    });
   }
 );
 
 export const getMe = createEffect(async () => {
-  const { data } = await strapi.request({
+  const { data } = await firstStepBack.request({
     method: "GET",
     url: `/users/me`,
-    params: {
-      populate: "role",
-    },
     headers: getHeaders(),
   });
 
@@ -66,8 +58,8 @@ export const getMe = createEffect(async () => {
 });
 
 export const $store = createStore<typeof initialState>(initialState)
-  .on(login.doneData, (state, user) => ({ ...state, user, isAuth: true }))
-  .on(register.doneData, (state, user) => ({ ...state, user, isAuth: true }))
+  .on(login.doneData, (state) => ({ ...state, isAuth: true }))
+  .on(register.doneData, (state) => ({ ...state, isAuth: true }))
   .on(getMe.doneData, (state, user) => ({ ...state, user }));
 
 export const { openAuthModal, closeModal, logout } = createApi($store, {
@@ -80,7 +72,7 @@ export const { openAuthModal, closeModal, logout } = createApi($store, {
   }),
   closeModal: (state) => ({ ...state, authModal: undefined }),
   logout: (state) => {
-    Cookies.remove("jwt");
+    Cookies.remove("access_token");
     return { ...state, isAuth: false, user: undefined };
   },
 });

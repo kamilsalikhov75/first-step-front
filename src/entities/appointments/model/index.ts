@@ -1,58 +1,52 @@
 import { createApi, createEffect, createStore } from "effector";
 import { Appointment, AppointmentsStore } from "../types";
 import { useUnit } from "effector-react";
-import { getHeaders, strapi } from "shared/api/strapi";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
+import { firstStepBack, getHeaders } from "shared/api/first-step-back";
 
 export const createAppointment = createEffect(
-  async (data: { date: Date; user: number }) => {
-    const { data: responseData } = await strapi.request({
+  async (data: { date: Date; user: string }) => {
+    await firstStepBack.request({
       method: "POST",
-      url: "/appointments",
-      data: { data },
+      url: "/appointment",
+      data: data,
       headers: getHeaders(),
     });
 
-    return responseData;
+    return data.date;
   }
 );
 
-export const getMyAppointments = createEffect(async (user: string) => {
-  const { data } = await strapi.request<{ data: Appointment[] }>({
+export const getMyAppointments = createEffect(async () => {
+  const { data } = await firstStepBack.request<Appointment[]>({
     method: "GET",
-    url: "/appointments",
+    url: "/appointment/user-appointments",
     headers: getHeaders(),
-    params: {
-      "filters[user][email][$eq]": user,
-      "sort[0]": "date:desc",
-      populate: "user",
-    },
   });
 
-  console.log(data.data);
-
-  return data.data;
+  return data;
 });
 
 export const getAllAppointments = createEffect(async () => {
-  const { data } = await strapi.request<{ data: Appointment[] }>({
+  const { data } = await firstStepBack.request<Appointment[]>({
     method: "GET",
-    url: "/appointments",
+    url: "/appointment",
     headers: getHeaders(),
-    params: { populate: "user", "sort[0]": "date:desc" },
   });
 
-  console.log(data.data);
+  console.log(data);
 
-  return data.data;
+  return data;
 });
 
 export const initialState: AppointmentsStore = {};
 
 export const $store = createStore(initialState)
   .on(createAppointment.doneData, (state, payload) => {
-    const date = format(payload.data.attributes.date, "PPPppp", { locale: ru });
+    const date = format(payload, "dd MMMM в HH:mm", { locale: ru });
+    console.log(payload);
+
     return {
       ...state,
       errorMessage: undefined,
@@ -60,11 +54,13 @@ export const $store = createStore(initialState)
     };
   })
   .on(createAppointment.failData, (state, payload: any) => {
-    if (payload.response?.data.error.details.errors[0].path.includes("date")) {
+    const errorMessage = payload.response.data.message;
+
+    if (errorMessage) {
       return {
         ...state,
         successMessage: undefined,
-        errorMessage: "На это время уже есть запись. Побробуйте другое время",
+        errorMessage: errorMessage,
       };
     }
     return state;

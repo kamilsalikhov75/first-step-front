@@ -24,7 +24,7 @@ export const Header = () => {
     <>
       <Navbar
         onMenuOpenChange={setIsMenuOpen}
-        classNames={{ wrapper: "px-0 max-w-full" }}
+        classNames={{ wrapper: "px-0 max-w-full bg-white" }}
         disableAnimation
       >
         <NavbarBrand>
@@ -72,7 +72,7 @@ export const Header = () => {
           )}
           {auth.user && <UserMenu />}
         </NavbarContent>
-        <NavbarMenu className="items-end">
+        <NavbarMenu className="items-end bg-white">
           {ROUTES.map((route) => (
             <NavbarMenuItem key={`${route.label}-${route.href}`}>
               <Link className="w-full" to={route.href}>

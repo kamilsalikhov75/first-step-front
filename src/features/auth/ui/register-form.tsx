@@ -27,7 +27,6 @@ export const RegisterForm = () => {
         <form
           onSubmit={handleSubmit((data) => {
             register({
-              username: data.email,
               email: data.email,
               name: data.name,
               password: data.password,

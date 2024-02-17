@@ -26,7 +26,7 @@ export const LoginForm = () => {
       <ModalBody>
         <form
           onSubmit={handleSubmit((data) => {
-            login({ identifier: data.email, password: data.password });
+            login({ username: data.email, password: data.password });
           })}
           className="flex flex-col gap-2"
         >

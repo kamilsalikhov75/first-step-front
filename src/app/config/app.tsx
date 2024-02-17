@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 function App() {
   const { isAuth, user } = useAuth();
   useEffect(() => {
-    if (Cookies.get("jwt") && !user) getMe();
+    if (Cookies.get("access_token") && !user) getMe();
   }, [isAuth, user]);
 
   return (
