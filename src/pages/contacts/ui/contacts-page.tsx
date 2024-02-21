@@ -7,7 +7,7 @@ export const ContactsPage = () => {
         <h2 className="font-bold text-2xl">Контакты</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <iframe
-            src="https://yandex.ru/map-widget/v1/?um=constructor%3Ac8606a412d5201f83e4db6bd4aee33766ac7146ed226c17f8bc7c73597273537&amp;source=constructor"
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3Ac84281bf42714d2e873266b9f10430ebb9605fea4ba9c78bff6adb53e81c97f8&amp;source=constructor"
             width="100%"
             height="400"
             frameBorder="0"
