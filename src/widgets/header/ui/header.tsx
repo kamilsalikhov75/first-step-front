@@ -72,15 +72,17 @@ export const Header = () => {
           )}
           {auth.user && <UserMenu />}
         </NavbarContent>
-        <NavbarMenu className="items-end bg-white">
-          {ROUTES.map((route) => (
-            <NavbarMenuItem key={`${route.label}-${route.href}`}>
-              <Link className="w-full" to={route.href}>
-                {route.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </NavbarMenu>
+        {isMenuOpen && (
+          <NavbarMenu className="items-end bg-white">
+            {ROUTES.map((route) => (
+              <NavbarMenuItem key={`${route.label}-${route.href}`}>
+                <Link className="w-full" to={route.href}>
+                  {route.label}
+                </Link>
+              </NavbarMenuItem>
+            ))}
+          </NavbarMenu>
+        )}
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="md:hidden"
