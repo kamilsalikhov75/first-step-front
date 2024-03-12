@@ -22,7 +22,7 @@ export class API {
         'X-Custom-Header': 'foobar',
         ...options.headers
       },
-      timeout: 1000
+      timeout: 10000
     });
   }
 }
