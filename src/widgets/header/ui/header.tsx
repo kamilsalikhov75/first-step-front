@@ -8,17 +8,19 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@nextui-org/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "shared/ui/icons";
 import { ROUTES } from "../model/meta";
 import { useState } from "react";
 import { AuthModal, UserMenu } from "features/auth";
 import { openAuthModal, useAuth } from "entities/auth";
 import { AuthModalMode } from "entities/auth/types";
+import { NavLink } from "shared/ui/links/nav-link";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const auth = useAuth();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -36,9 +38,7 @@ export const Header = () => {
           {ROUTES.map((route, index) => {
             return (
               <NavbarItem key={index}>
-                <Link color="foreground" to={route.href}>
-                  {route.label}
-                </Link>
+                <NavLink to={route.href}>{route.label}</NavLink>
               </NavbarItem>
             );
           })}
@@ -57,19 +57,25 @@ export const Header = () => {
                   Войти
                 </Button>
               </NavbarItem>
-              <NavbarItem className="hidden md:flex">
-                <Button
-                  onClick={() => {
-                    openAuthModal(AuthModalMode.Register);
-                  }}
-                  className="bg-green-500 font-bold text-white"
-                  variant="solid"
-                >
-                  Регистрация
-                </Button>
-              </NavbarItem>
             </>
           )}
+          {
+            <NavbarItem className="hidden md:flex">
+              <Button
+                onClick={() => {
+                  if (!auth.user) {
+                    openAuthModal(AuthModalMode.Login);
+                  } else {
+                    navigate("/appointments/create");
+                  }
+                }}
+                className="bg-green-500 font-bold text-white"
+                variant="solid"
+              >
+                Запись на прием
+              </Button>
+            </NavbarItem>
+          }
           {auth.user && <UserMenu />}
         </NavbarContent>
         {isMenuOpen && (

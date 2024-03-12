@@ -1,3 +1,4 @@
+import { Image } from "@nextui-org/react";
 import { SERVICES } from "shared/const";
 import { InfoCard } from "shared/ui/info-card";
 
@@ -8,7 +9,22 @@ export const ServicesPage = () => {
         <h2 className="font-bold text-2xl">Услуги центра</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {SERVICES.map((service, index) => {
-            return <InfoCard key={index} {...service} />;
+            return (
+              <InfoCard
+                key={index}
+                title={service.title}
+                description={
+                  <div className="grid h-full gap-1">
+                    <p>{service.description}</p>
+                    <Image
+                      removeWrapper
+                      className="self-end w-full h-[200px] object-cover"
+                      src={service.image}
+                    />
+                  </div>
+                }
+              />
+            );
           })}
         </div>
       </section>

@@ -1,4 +1,8 @@
+import { Image } from "@nextui-org/react";
 import { Link } from "react-router-dom";
+import image1 from "shared/assets/about/about-1.jpg";
+import image2 from "shared/assets/about/about-2.jpg";
+import image3 from "shared/assets/about/about-3.jpg";
 
 export const AboutPage = () => {
   return (
@@ -19,6 +23,11 @@ export const AboutPage = () => {
           индивидуальную программу лечения, и стремимся к достижению реальных
           целей.{" "}
         </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Image className="h-full object-cover" src={image1} />
+          <Image className="h-full object-cover" src={image2} />
+          <Image className="h-full object-cover" src={image3} />
+        </div>
       </section>
       <section className="flex flex-col gap-5">
         <h2 className="font-bold text-2xl">Филиалы в крупных городах</h2>
@@ -31,7 +40,9 @@ export const AboutPage = () => {
         </p>
         <p>
           На данный момент функционируют 2 центра сети "Первый шаг":{" "}
-          <Link className="text-green-500" to="/contacts">Подробнее</Link>
+          <Link className="text-green-500" to="/contacts">
+            Подробнее
+          </Link>
         </p>
       </section>
     </main>

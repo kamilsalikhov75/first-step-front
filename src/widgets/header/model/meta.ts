@@ -15,4 +15,8 @@ export const ROUTES = [
     href: "/contacts",
     label: "Контакты",
   },
+  {
+    href: "/feedback",
+    label: "Отзывы",
+  },
 ];

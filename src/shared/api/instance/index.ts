@@ -1,5 +1,10 @@
-import type { AxiosHeaders, AxiosInstance, HeadersDefaults, RawAxiosRequestHeaders } from 'axios';
-import axios from 'axios';
+import type {
+  AxiosHeaders,
+  AxiosInstance,
+  HeadersDefaults,
+  RawAxiosRequestHeaders,
+} from "axios";
+import axios from "axios";
 
 type Headers = RawAxiosRequestHeaders | AxiosHeaders | Partial<HeadersDefaults>;
 
@@ -19,10 +24,10 @@ export class API {
     this.request = axios.create({
       baseURL: this.baseUrl,
       headers: {
-        'X-Custom-Header': 'foobar',
-        ...options.headers
+        "X-Custom-Header": "foobar",
+        ...options.headers,
       },
-      timeout: 10000
+      // timeout: 10000
     });
   }
 }

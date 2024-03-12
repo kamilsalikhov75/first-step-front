@@ -4,6 +4,7 @@ import { AuthModalMode, AuthStore } from "../types";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { firstStepBack, getHeaders } from "shared/api/first-step-back";
+import { toast } from "react-toastify";
 
 export const initialState: AuthStore = { isAuth: false };
 
@@ -59,7 +60,10 @@ export const getMe = createEffect(async () => {
 
 export const $store = createStore<typeof initialState>(initialState)
   .on(login.doneData, (state) => ({ ...state, isAuth: true }))
-  .on(register.doneData, (state) => ({ ...state, isAuth: true }))
+  .on(register.doneData, (state) => {
+    toast.success("Вы успешно зарегистрировались!");
+    return { ...state, isAuth: true };
+  })
   .on(getMe.doneData, (state, user) => ({ ...state, user }));
 
 export const { openAuthModal, closeModal, logout } = createApi($store, {

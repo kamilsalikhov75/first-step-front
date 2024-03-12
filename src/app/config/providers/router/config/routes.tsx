@@ -8,6 +8,7 @@ import { Role } from "entities/auth/types";
 import { ServicesPage } from "pages/services";
 import { ContactsPage } from "pages/contacts";
 import { AboutPage } from "pages/about";
+import { FeedbackPage } from "pages/feedback";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutPage />,
+      },
+      {
+        path: "/feedback",
+        element: <FeedbackPage />,
       },
       {
         path: "/appointments",
