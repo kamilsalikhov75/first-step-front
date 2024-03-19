@@ -10,15 +10,18 @@ import { ru } from "date-fns/locale";
 import { WithLabel } from "shared/ui/with-label";
 
 export const AdminAppointmentsPage = () => {
+  // Получение данных о пользователе
   const { user } = useAuth();
   const { items: appointments } = useAppointments();
 
   useEffect(() => {
     if (user) {
+      // Запрос на получение данных о записях
       getAllAppointments();
     }
 
     return () => {
+      // Очистка данных о записях после ухода со страницы
       clearAppoitmentStore();
     };
   }, [user]);
@@ -27,6 +30,7 @@ export const AdminAppointmentsPage = () => {
     <main>
       <h1 className="font-bold text-2xl text-blue-900 mb-5">Мои записи</h1>
       <div className="grid gap-3">
+        {/* Отрисовка полученных записей */}
         {appointments?.map((appointment) => {
           const date = format(appointment.date, "dd MMMM yyyy HH:mm", {
             locale: ru,

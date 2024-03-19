@@ -7,6 +7,7 @@ export const FeedbackPage = () => {
       <section className="flex flex-col gap-5">
         <h2 className="font-bold text-2xl">Отзывы</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Отрисовка отзывов */}
           {FEEDBACKS.map((feedback, index) => {
             return (
               <InfoCard

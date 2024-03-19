@@ -8,6 +8,7 @@ export const ServicesPage = () => {
       <section className="flex flex-col gap-5">
         <h2 className="font-bold text-2xl">Услуги центра</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Отрисовка услуг */}
           {SERVICES.map((service, index) => {
             return (
               <InfoCard

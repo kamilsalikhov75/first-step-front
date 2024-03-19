@@ -14,11 +14,12 @@ export const CreateAppointmentForm = () => {
 
   return (
     <form
+    // Функция, которая отработает после нажатия на кнопку "Записаться"
       onSubmit={(e) => {
         e.preventDefault();
 
         date?.setHours(Number(time) || 0);
-
+        // Запрос на создание записи
         createAppointment({ user: user?._id as string, date: date as Date });
       }}
       className="flex flex-col gap-4"
