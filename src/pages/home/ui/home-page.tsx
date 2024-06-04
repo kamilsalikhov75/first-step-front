@@ -19,9 +19,21 @@ export const HomePage = () => {
           опорно-двигательного аппарата.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Image className="h-full object-cover" src={image1} />
-          <Image className="h-full object-cover" src={image2} />
-          <Image className="h-full object-cover" src={image3} />
+          <Image
+            removeWrapper
+            className="h-[250px] w-full md:h-full object-cover"
+            src={image1}
+          />
+          <Image
+            removeWrapper
+            className="h-[250px] w-full md:h-full object-cover"
+            src={image2}
+          />
+          <Image
+            removeWrapper
+            className="h-[250px] w-full md:h-full object-cover"
+            src={image3}
+          />
         </div>
       </section>
 
